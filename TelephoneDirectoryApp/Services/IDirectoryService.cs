@@ -8,6 +8,6 @@ namespace TelephoneDirectoryApp.Services
 {
     public interface IDirectoryService
     {
-        List<TelephoneUser> GetAllUsers();
+        IEnumerable<TelephoneUser> GetAllUsers();
     }
 }

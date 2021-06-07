@@ -21,34 +21,11 @@ namespace TelephoneDirectoryApp.Controllers
         }
         // GET: api/Directory
         [HttpGet]
-        public IEnumerable<TelephoneUser> Get()
+        public ActionResult<IEnumerable<TelephoneUser>> Get()
         {
-            return _directoryService.GetAllUsers();
+            var result =  _directoryService.GetAllUsers();
+            return Ok(result);
         }
-
-        // GET: api/Directory/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Directory
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Directory/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+               
     }
 }

@@ -8,7 +8,7 @@ namespace TelephoneDirectoryApp.Services
 {
     public class DirectoryService : IDirectoryService
     {
-        public List<TelephoneUser> GetAllUsers()
+        public IEnumerable<TelephoneUser> GetAllUsers()
         {
             var result = new List<TelephoneUser>();
 
