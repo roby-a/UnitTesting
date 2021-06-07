@@ -107,4 +107,9 @@ D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\runtimes\win-x8
 D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\obj\Debug\netcoreapp3.1\TelephoneDirectoryApp.MvcApplicationPartsAssemblyInfo.cs
 D:\UnitTestingDemo\TelephoneDirectoryApp\obj\Debug\netcoreapp3.1\TelephoneDirectoryApp.MvcApplicationPartsAssemblyInfo.cache
