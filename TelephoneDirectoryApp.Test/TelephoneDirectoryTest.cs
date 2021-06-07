@@ -29,10 +29,10 @@ namespace TelephoneDirectoryApp.Test
             //assert
             Assert.IsType<OkObjectResult>(result.Result);
 
-            var objResult = result.Result as OkObjectResult;
-            var list = objResult.Value as List<TelephoneUser>;
+            var objectResult = result.Result as OkObjectResult;
+            var userList = objectResult.Value as List<TelephoneUser>;
 
-            Assert.Equal(6,list.Count);
+            Assert.Equal(6, userList.Count);
         }
     }
 }
