@@ -23,9 +23,9 @@ namespace TelephoneDirectoryApp.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<TelephoneUser>> Get()
         {
-            var result =  _directoryService.GetAllUsers();
+            var result = _directoryService.GetAllUsers();
             return Ok(result);
         }
-               
+
     }
 }
