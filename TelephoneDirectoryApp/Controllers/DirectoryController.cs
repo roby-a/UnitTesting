@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TelephoneDirectoryApp.Models;
+using TelephoneDirectoryApp.Services;
 
 namespace TelephoneDirectoryApp.Controllers
 {
@@ -11,11 +13,17 @@ namespace TelephoneDirectoryApp.Controllers
     [ApiController]
     public class DirectoryController : ControllerBase
     {
+        protected internal IDirectoryService _directoryService;
+
+        public DirectoryController(IDirectoryService directoryService)
+        {
+            _directoryService = directoryService;
+        }
         // GET: api/Directory
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<TelephoneUser> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _directoryService.GetAllUsers();
         }
 
         // GET: api/Directory/5
