@@ -53,6 +53,10 @@ TestResult.xml
 [Dd]ebugPS/
 [Rr]eleasePS/
 dlldata.c
+*.dll
+*.cache
+# Visual Studio 2015/2017 cache/options directory
+*.vs/
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
