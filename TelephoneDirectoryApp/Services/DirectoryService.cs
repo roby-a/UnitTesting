@@ -1,11 +1,10 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using TelephoneDirectoryApp.Models;
-using OfficeOpenXml;
 using System.Text;
+using TelephoneDirectoryApp.Models;
 
 namespace TelephoneDirectoryApp.Services
 {
@@ -15,9 +14,10 @@ namespace TelephoneDirectoryApp.Services
         {
             try
             {
-                if (ValidateUser(detail))
+                var users = GetAllUsers();
+                if (ValidateUser(detail, users))
                 {
-                    var lastId = GetAllUsers().LastOrDefault().Id;
+                    var lastId = users.LastOrDefault().Id;
                     var file = GetFile();
                     var worksheet = file.Item1;
                     var package = file.Item2;
@@ -46,8 +46,9 @@ namespace TelephoneDirectoryApp.Services
         {
             try
             {
-                var user = GetUser(detail.Id);
-                if (user != null && ValidateUser(detail))
+                var users = GetAllUsers();
+                var user = users.Where(x => x.Id == detail.Id).FirstOrDefault();
+                if (user != null && ValidateUser(detail, users))
                 {
                     var file = GetFile();
                     var worksheet = file.Item1;
@@ -114,7 +115,7 @@ namespace TelephoneDirectoryApp.Services
                 };
                 result.Add(item);
             }
-            return result.OrderBy(x=>x.Id);
+            return result.OrderBy(x => x.Id);
         }
 
         public TelephoneUser GetUser(int id)
@@ -182,18 +183,20 @@ namespace TelephoneDirectoryApp.Services
             return result;
         }
 
-        private bool ValidateUser(TelephoneUser detail)
+        private bool ValidateUser(TelephoneUser detail, IEnumerable<TelephoneUser> users)
         {
             var check = String.IsNullOrWhiteSpace(detail.FirstName) ||
                         String.IsNullOrWhiteSpace(detail.Location) ||
-                        String.IsNullOrWhiteSpace(detail.Number.ToString());
+                        String.IsNullOrWhiteSpace(detail.Number.ToString())
+                        //|| users.Where(x=>x.Id!=detail.Id).Select(x => x.Number).Contains(detail.Number)
+                        ;
 
             if (!check)
                 return true;
             return false;
         }
 
-        private (ExcelWorksheet,ExcelPackage) GetFile()
+        private (ExcelWorksheet, ExcelPackage) GetFile()
         {
             string path = "D:/TelephoneDirectory.xlsx";
             FileInfo fileInfo = new FileInfo(path);
@@ -201,7 +204,7 @@ namespace TelephoneDirectoryApp.Services
 
             ExcelPackage package = new ExcelPackage(fileInfo);
             ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
-            return (worksheet,package);
+            return (worksheet, package);
         }
     }
 }

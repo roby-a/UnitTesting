@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using TelephoneDirectoryApp.Models;
 using TelephoneDirectoryApp.Services;
 
@@ -19,7 +15,7 @@ namespace TelephoneDirectoryApp.Controllers
         {
             _directoryService = directoryService;
         }
-        
+
         [HttpGet]
         public ActionResult<IEnumerable<TelephoneUser>> Get()
         {
@@ -37,12 +33,12 @@ namespace TelephoneDirectoryApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult<int> AddUser(TelephoneUser user)
+        public ActionResult<ApiResponse> AddUser(TelephoneUser user)
         {
             var result = _directoryService.AddDetails(user);
             if (result == -1)
-                return BadRequest();
-            return Ok(result);
+                return BadRequest(new ApiResponse() { Status = 0, Message = "Unexpected error occured", Data = 0 });
+            return Ok(new ApiResponse() { Status = 1, Message = "Success", Data = result });
         }
 
         [HttpPut]
@@ -56,7 +52,7 @@ namespace TelephoneDirectoryApp.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult<int> DeleteUser(int id)
         {
             var result = _directoryService.DeleteUser(id);
