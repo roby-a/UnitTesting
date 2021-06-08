@@ -111,5 +111,10 @@ D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\Microsoft.OpenA
 D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\EPPlus.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\System.Runtime.CompilerServices.Unsafe.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
+D:\UnitTestingDemo\TelephoneDirectoryApp\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
 D:\UnitTestingDemo\TelephoneDirectoryApp\obj\Debug\netcoreapp3.1\TelephoneDirectoryApp.MvcApplicationPartsAssemblyInfo.cs
 D:\UnitTestingDemo\TelephoneDirectoryApp\obj\Debug\netcoreapp3.1\TelephoneDirectoryApp.MvcApplicationPartsAssemblyInfo.cache
