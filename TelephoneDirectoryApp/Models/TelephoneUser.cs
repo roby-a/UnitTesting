@@ -7,5 +7,6 @@
         public string LastName { get; set; }
         public double Number { get; set; }
         public string Location { get; set; }
+        public int RowId { get; set; }
     }
 }

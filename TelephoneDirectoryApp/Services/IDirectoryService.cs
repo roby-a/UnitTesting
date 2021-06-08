@@ -9,6 +9,9 @@ namespace TelephoneDirectoryApp.Services
     public interface IDirectoryService
     {
         IEnumerable<TelephoneUser> GetAllUsers();
-        bool AddDetails(TelephoneUser detail);
+        int AddDetails(TelephoneUser detail);
+        TelephoneUser GetUser(int id);
+        int UpdateUser(TelephoneUser detail);
+        int DeleteUser(int id);
     }
 }

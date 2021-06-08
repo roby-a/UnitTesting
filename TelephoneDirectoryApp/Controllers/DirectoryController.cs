@@ -19,7 +19,7 @@ namespace TelephoneDirectoryApp.Controllers
         {
             _directoryService = directoryService;
         }
-        // GET: api/Directory
+        
         [HttpGet]
         public ActionResult<IEnumerable<TelephoneUser>> Get()
         {
@@ -27,5 +27,44 @@ namespace TelephoneDirectoryApp.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<TelephoneUser> GetUser(int id)
+        {
+            var result = _directoryService.GetUser(id);
+            if (result != null)
+                return Ok(result);
+            return BadRequest();
+        }
+
+        [HttpPost]
+        public ActionResult<int> AddUser(TelephoneUser user)
+        {
+            var result = _directoryService.AddDetails(user);
+            if (result == -1)
+                return BadRequest();
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public ActionResult<int> UpdateUser(TelephoneUser user)
+        {
+            var result = _directoryService.UpdateUser(user);
+            if (result == 1)
+                return NotFound();
+            else if (result == 2)
+                return BadRequest();
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        public ActionResult<int> DeleteUser(int id)
+        {
+            var result = _directoryService.DeleteUser(id);
+            if (result == 1)
+                return NotFound();
+            else if (result == 2)
+                return BadRequest();
+            return Ok(result);
+        }
     }
 }

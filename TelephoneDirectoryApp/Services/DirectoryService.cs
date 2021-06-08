@@ -11,21 +11,92 @@ namespace TelephoneDirectoryApp.Services
 {
     public class DirectoryService : IDirectoryService
     {
-        public bool AddDetails(TelephoneUser detail)
+        public int AddDetails(TelephoneUser detail)
         {
-            return true;
+            try
+            {
+                if (ValidateUser(detail))
+                {
+                    var lastId = GetAllUsers().LastOrDefault().Id;
+                    var file = GetFile();
+                    var worksheet = file.Item1;
+                    var package = file.Item2;
+
+                    // get number of rows and columns in the sheet
+                    int newRow = worksheet.Dimension.Rows + 1;
+                    worksheet.Cells[newRow, 1].Value = lastId + 1;
+                    worksheet.Cells[newRow, 2].Value = detail.FirstName;
+                    worksheet.Cells[newRow, 3].Value = detail.LastName;
+                    worksheet.Cells[newRow, 4].Value = detail.Number;
+                    worksheet.Cells[newRow, 5].Value = detail.Location;
+
+                    package.Save();
+
+                    return lastId + 1;
+                }
+                return -1;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        public int UpdateUser(TelephoneUser detail)
+        {
+            try
+            {
+                var user = GetUser(detail.Id);
+                if (user != null && ValidateUser(detail))
+                {
+                    var file = GetFile();
+                    var worksheet = file.Item1;
+                    var package = file.Item2;
+                    worksheet.Cells[user.RowId, 2].Value = detail.FirstName;
+                    worksheet.Cells[user.RowId, 3].Value = detail.LastName;
+                    worksheet.Cells[user.RowId, 4].Value = detail.Number;
+                    worksheet.Cells[user.RowId, 5].Value = detail.Location;
+
+                    package.Save();
+                    return 3;
+                }
+                return 1;
+            }
+            catch
+            {
+                return 2;
+            }
+        }
+
+        public int DeleteUser(int id)
+        {
+            try
+            {
+                var user = GetUser(id);
+                if (user != null)
+                {
+                    var file = GetFile();
+                    var ws = file.Item1;
+                    var package = file.Item2;
+                    ws.DeleteRow(user.RowId, 1, true);
+                    package.Save();
+                    return 3;
+                }
+                return 1;
+            }
+            catch
+            {
+                return 2;
+            }
         }
 
         public IEnumerable<TelephoneUser> GetAllUsers()
         {
             var result = new List<TelephoneUser>();
 
-            string path = "D:/TelephoneDirectory.xlsx";
-            FileInfo fileInfo = new FileInfo(path);
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-            ExcelPackage package = new ExcelPackage(fileInfo);
-            ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+            var file = GetFile();
+            var worksheet = file.Item1;
+            var package = file.Item2;
 
             // get number of rows and columns in the sheet
             int rows = worksheet.Dimension.Rows;
@@ -38,11 +109,17 @@ namespace TelephoneDirectoryApp.Services
                     FirstName = worksheet.Cells[i, 2].Value.ToString(),
                     LastName = worksheet.Cells[i, 3].Value.ToString(),
                     Number = Convert.ToDouble(worksheet.Cells[i, 4].Value.ToString()),
-                    Location = worksheet.Cells[i, 5].Value.ToString()
+                    Location = worksheet.Cells[i, 5].Value.ToString(),
+                    RowId = i
                 };
                 result.Add(item);
             }
-            return result;
+            return result.OrderBy(x=>x.Id);
+        }
+
+        public TelephoneUser GetUser(int id)
+        {
+            return GetAllUsers().Where(x => x.Id == id).FirstOrDefault();
         }
 
         public IEnumerable<TelephoneUser> GetDummyData()
@@ -103,6 +180,28 @@ namespace TelephoneDirectoryApp.Services
             });
 
             return result;
+        }
+
+        private bool ValidateUser(TelephoneUser detail)
+        {
+            var check = String.IsNullOrWhiteSpace(detail.FirstName) ||
+                        String.IsNullOrWhiteSpace(detail.Location) ||
+                        String.IsNullOrWhiteSpace(detail.Number.ToString());
+
+            if (!check)
+                return true;
+            return false;
+        }
+
+        private (ExcelWorksheet,ExcelPackage) GetFile()
+        {
+            string path = "D:/TelephoneDirectory.xlsx";
+            FileInfo fileInfo = new FileInfo(path);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            ExcelPackage package = new ExcelPackage(fileInfo);
+            ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault();
+            return (worksheet,package);
         }
     }
 }
