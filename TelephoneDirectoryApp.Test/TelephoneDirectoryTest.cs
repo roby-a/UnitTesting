@@ -19,7 +19,7 @@ namespace TelephoneDirectoryApp.Test
             _controller = new DirectoryController(_service);
         }
 
-        [Fact(Skip = "Add test in progress")]
+        [Fact]//(Skip = "Add test in progress")]
         public void GetAllUsersTest()
         {
             //arrange
@@ -31,7 +31,7 @@ namespace TelephoneDirectoryApp.Test
             var objectResult = result.Result as OkObjectResult;
             var userList = objectResult.Value as IEnumerable<TelephoneUser>;
 
-            Assert.Equal(28, userList.Count());
+            Assert.Equal(27, userList.Count());
         }
 
         [Theory]
@@ -83,7 +83,18 @@ namespace TelephoneDirectoryApp.Test
             Assert.Equal(1, response.Status);
             Assert.Equal(validDetail.FirstName, newAdditionCheckObjectValue.FirstName);
 
+        }
 
+        [Theory]
+        [InlineData(35,37)]
+        public void DeleteUserTest(int validId,int invalidId)
+        {
+            var validResult = _controller.DeleteUser(validId);
+            var invalidResult = _controller.DeleteUser(invalidId);
+
+
+            Assert.IsType<OkObjectResult>(validResult.Result);
+            Assert.IsType<NotFoundObjectResult>(invalidResult.Result);
         }
     }
 }

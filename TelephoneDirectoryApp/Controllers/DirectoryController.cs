@@ -46,9 +46,9 @@ namespace TelephoneDirectoryApp.Controllers
         {
             var result = _directoryService.UpdateUser(user);
             if (result == 1)
-                return NotFound();
+                return NotFound(result);
             else if (result == 2)
-                return BadRequest();
+                return BadRequest(result);
             return Ok(result);
         }
 
@@ -57,9 +57,9 @@ namespace TelephoneDirectoryApp.Controllers
         {
             var result = _directoryService.DeleteUser(id);
             if (result == 1)
-                return NotFound();
+                return NotFound(result);
             else if (result == 2)
-                return BadRequest();
+                return BadRequest(result);
             return Ok(result);
         }
     }
